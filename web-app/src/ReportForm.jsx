@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from './api';
 import MapPicker from './components/MapPicker';
 import ReportTemplates from './components/ReportTemplates';
@@ -44,6 +44,7 @@ export default function ReportForm({ onSuccess }) {
   const [category, setCategory] = useState(categories[0]);
   const [lat, setLat] = useState(37.7749); // Default to SF
   const [lng, setLng] = useState(-122.4194);
+  const [locationLoading, setLocationLoading] = useState(true);
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [priority, setPriority] = useState('medium');
@@ -58,6 +59,23 @@ export default function ReportForm({ onSuccess }) {
   const [error, setError] = useState(null);
   const [anonymous, setAnonymous] = useState(false);
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLat(position.coords.latitude);
+          setLng(position.coords.longitude);
+          setLocationLoading(false);
+        },
+        (error) => {
+          setLocationLoading(false);
+        }
+      );
+    } else {
+      setLocationLoading(false);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -229,6 +247,9 @@ export default function ReportForm({ onSuccess }) {
       )}
 
       <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6 space-y-6" aria-label="Report submission form">
+        {locationLoading && (
+          <div className="text-center text-blue-500 mb-4">Detecting your location...</div>
+        )}
         <div className="text-center mb-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-2xl font-bold text-gray-800">Submit a Report</h2>
