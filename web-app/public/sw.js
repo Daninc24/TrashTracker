@@ -20,8 +20,12 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Fetch event - serve from cache when offline
+// Fetch event - serve from cache when offline, but BYPASS for API requests
 self.addEventListener('fetch', (event) => {
+  // Bypass service worker for API requests
+  if (event.request.url.includes('/api/')) {
+    return;
+  }
   event.respondWith((async () => {
     try {
       const cached = await caches.match(event.request);
