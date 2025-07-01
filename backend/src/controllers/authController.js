@@ -17,7 +17,13 @@ async function register(req, res) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ email, password: hashedPassword });
     await user.save();
-    res.status(201).json({ message: 'User registered successfully' });
+    // Generate token for auto-login
+    const token = jwt.sign(
+      { userId: user._id, email: user.email, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' }
+    );
+    res.status(201).json({ token });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
