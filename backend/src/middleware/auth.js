@@ -16,6 +16,9 @@ function auth(req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log('Decoded user:', decoded);
     req.user = decoded;
+    if (decoded.userId && !decoded.id) {
+      req.user.id = decoded.userId;
+    }
     next();
   } catch (err) {
     console.log('Token verification failed:', err.message);
