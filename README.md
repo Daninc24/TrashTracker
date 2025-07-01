@@ -76,23 +76,7 @@ trash/
    ```
 
 2. **Create a `.env` file in `backend/` with the following variables:**
-   ```
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/rashtrackr
-   JWT_SECRET=your_jwt_secret
-   SESSION_SECRET=your_session_secret
-   REDIS_HOST=localhost
-   REDIS_PORT=6379
-   REDIS_PASSWORD=your_redis_password
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=587
-   SMTP_USER=your_email@gmail.com
-   SMTP_PASS=your_email_password
-   SMTP_FROM=noreply@rashtrackr.com
-   ELASTICSEARCH_URL=http://localhost:9200
-   ELASTICSEARCH_USERNAME=your_es_user
-   ELASTICSEARCH_PASSWORD=your_es_password
-   NODE_ENV=development
+   
    ```
 
 3. **Start the backend server:**
