@@ -3,6 +3,7 @@ import ReportMap from '../components/ReportMap';
 import NotificationCenter from '../components/NotificationCenter';
 import AnalyticsDashboard from '../components/AnalyticsDashboard';
 import { AuthContext } from '../AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 function UsersTab() {
   const [users, setUsers] = React.useState([]);
@@ -872,7 +873,8 @@ const TABS = [
 ];
 
 export default function AdminDashboard() {
-  const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [tab, setTab] = useState(0);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -894,6 +896,11 @@ export default function AdminDashboard() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
+
   if (!user || user.role !== 'admin') {
     return <div className="text-red-500 font-bold text-center mt-10">Access denied. Admins only.</div>;
   }
@@ -906,6 +913,12 @@ export default function AdminDashboard() {
       <aside className="w-56 bg-white shadow h-screen p-6 hidden md:block">
         <div className="flex items-center justify-between mb-8">
           <div className="text-2xl font-bold">Admin</div>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors text-sm"
+          >
+            Logout
+          </button>
           <button
             onClick={() => setNotificationsOpen(true)}
             className="relative p-2 text-gray-600 hover:text-gray-800"
