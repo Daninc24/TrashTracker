@@ -11,6 +11,7 @@ export default function CommunityDashboard() {
   const [showCreateTeam, setShowCreateTeam] = useState(false);
   const [showCreateChallenge, setShowCreateChallenge] = useState(false);
   const { showToast } = useToast();
+  const [error, setError] = useState(null);
 
   // Form states
   const [teamForm, setTeamForm] = useState({
@@ -45,6 +46,7 @@ export default function CommunityDashboard() {
   const loadCommunityData = async () => {
     try {
       setLoading(true);
+      setError(null);
       const [teamsRes, challengesRes, socialRes] = await Promise.all([
         api.get('/community/teams'),
         api.get('/community/challenges'),
@@ -55,7 +57,11 @@ export default function CommunityDashboard() {
       setChallenges(challengesRes.data.challenges || []);
       setSocialConnections(socialRes.data);
     } catch (error) {
-      console.error('Error loading community data:', error);
+      setError(
+        error.response?.status === 401 || error.response?.status === 403
+          ? 'You are not authorized to view community features. Please log in.'
+          : 'Failed to load community data. Please try again.'
+      );
       showToast('Failed to load community data', 'error');
     } finally {
       setLoading(false);
@@ -168,8 +174,25 @@ export default function CommunityDashboard() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+      <div className="flex flex-col justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mb-4"></div>
+        {error && (
+          <div className="text-red-500 text-center mb-2">{error}</div>
+        )}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64">
+        <div className="text-red-500 text-center mb-4">{error}</div>
+        <button
+          onClick={loadCommunityData}
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
+          Retry
+        </button>
       </div>
     );
   }

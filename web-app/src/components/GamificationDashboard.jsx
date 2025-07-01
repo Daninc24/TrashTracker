@@ -10,6 +10,7 @@ export default function GamificationDashboard() {
   const [loading, setLoading] = useState(true);
   const [leaderboardType, setLeaderboardType] = useState('points');
   const { showToast } = useToast();
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     loadGamificationData();
@@ -18,6 +19,7 @@ export default function GamificationDashboard() {
   const loadGamificationData = async () => {
     try {
       setLoading(true);
+      setError(null);
       const [progressRes, achievementsRes, leaderboardRes, globalStatsRes] = await Promise.all([
         api.get('/gamification/progress'),
         api.get('/gamification/achievements/user'),
@@ -30,7 +32,11 @@ export default function GamificationDashboard() {
       setLeaderboard(leaderboardRes.data);
       setGlobalStats(globalStatsRes.data);
     } catch (error) {
-      console.error('Error loading gamification data:', error);
+      setError(
+        error.response?.status === 401 || error.response?.status === 403
+          ? 'You are not authorized to view achievements. Please log in.'
+          : 'Failed to load gamification data. Please try again.'
+      );
       showToast('Failed to load gamification data', 'error');
     } finally {
       setLoading(false);
@@ -54,8 +60,25 @@ export default function GamificationDashboard() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
+      <div className="flex flex-col justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mb-4"></div>
+        {error && (
+          <div className="text-red-500 text-center mb-2">{error}</div>
+        )}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-64">
+        <div className="text-red-500 text-center mb-4">{error}</div>
+        <button
+          onClick={loadGamificationData}
+          className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        >
+          Retry
+        </button>
       </div>
     );
   }
