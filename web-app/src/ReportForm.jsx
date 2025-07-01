@@ -42,9 +42,10 @@ const commonTags = [
 
 export default function ReportForm({ onSuccess }) {
   const [category, setCategory] = useState(categories[0]);
-  const [lat, setLat] = useState(37.7749); // Default to SF
-  const [lng, setLng] = useState(-122.4194);
+  const [lat, setLat] = useState(null); // Start as null
+  const [lng, setLng] = useState(null);
   const [locationLoading, setLocationLoading] = useState(true);
+  const [locationError, setLocationError] = useState(null);
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [priority, setPriority] = useState('medium');
@@ -61,25 +62,34 @@ export default function ReportForm({ onSuccess }) {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    setLocationLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setLat(position.coords.latitude);
           setLng(position.coords.longitude);
           setLocationLoading(false);
+          setLocationError(null);
         },
         (error) => {
+          setLat(37.7749); // fallback to SF
+          setLng(-122.4194);
           setLocationLoading(false);
+          setLocationError('Unable to access your location. You can manually pin the location on the map.');
         }
       );
     } else {
+      setLat(37.7749);
+      setLng(-122.4194);
       setLocationLoading(false);
+      setLocationError('Geolocation is not supported by your browser. You can manually pin the location on the map.');
     }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     
     try {
       // Validate required fields
@@ -141,8 +151,8 @@ export default function ReportForm({ onSuccess }) {
       
       // Reset form
       setCategory(categories[0]);
-      setLat(37.7749);
-      setLng(-122.4194);
+      setLat(null);
+      setLng(null);
       setDescription('');
       setImage(null);
       setPriority('medium');
@@ -265,6 +275,9 @@ export default function ReportForm({ onSuccess }) {
       <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6 space-y-6" aria-label="Report submission form">
         {locationLoading && (
           <div className="text-center text-blue-500 mb-4">Detecting your location...</div>
+        )}
+        {locationError && (
+          <div className="text-center text-red-500 mb-4">{locationError}</div>
         )}
         <div className="text-center mb-6">
           <div className="flex justify-between items-center mb-4">
@@ -450,7 +463,7 @@ export default function ReportForm({ onSuccess }) {
         <label htmlFor="location" className="block mb-2 font-semibold text-gray-700">Pick Location *</label>
         <div className="border border-gray-300 rounded-lg overflow-hidden">
           <MapPicker
-            initialPosition={[lat, lng]}
+            initialPosition={lat !== null && lng !== null ? [lat, lng] : [37.7749, -122.4194]}
             onChange={([newLat, newLng]) => {
               setLat(newLat);
               setLng(newLng);
@@ -458,8 +471,8 @@ export default function ReportForm({ onSuccess }) {
           />
         </div>
         <div className="text-sm text-gray-500 mt-2 flex items-center">
-          <span className="mr-4">📍 Lat: {lat.toFixed(5)}</span>
-          <span>📍 Lng: {lng.toFixed(5)}</span>
+          <span className="mr-4">📍 Lat: {lat?.toFixed(5) || 'Loading...'}</span>
+          <span>📍 Lng: {lng?.toFixed(5) || 'Loading...'}</span>
         </div>
       </div>
       
