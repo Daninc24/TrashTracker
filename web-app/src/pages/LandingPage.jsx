@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import ReportForm from '../ReportForm';
+import { AuthContext } from '../AuthContext';
 
 export default function LandingPage() {
   const [showAnonModal, setShowAnonModal] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       {/* Navigation */}
@@ -26,6 +33,14 @@ export default function LandingPage() {
               >
                 Get Started
               </Link>
+              {user?.role === 'admin' && (
+                <button
+                  onClick={handleLogout}
+                  className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors"
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </div>
         </div>
