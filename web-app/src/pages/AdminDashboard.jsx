@@ -915,27 +915,17 @@ export default function AdminDashboard() {
       <aside className="w-56 bg-white shadow h-screen p-6 hidden md:block">
         <div className="flex items-center justify-between mb-8 gap-2">
           <div className="text-2xl font-bold">Admin</div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1 border border-red-500 text-red-600 bg-white px-3 py-1 rounded-md hover:bg-red-50 hover:text-white hover:bg-red-500 transition-colors text-xs font-semibold shadow-sm"
-              title="Logout"
-            >
-              <span className="text-base">🚪</span>
-              <span>Logout</span>
-            </button>
-            <button
-              onClick={() => setNotificationsOpen(true)}
-              className="relative p-2 text-gray-600 hover:text-gray-800"
-            >
-              🔔
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </span>
-              )}
-            </button>
-          </div>
+          <button
+            onClick={() => setNotificationsOpen(true)}
+            className="relative p-2 text-gray-600 hover:text-gray-800"
+          >
+            🔔
+            {unreadCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </span>
+            )}
+          </button>
         </div>
         <nav className="flex flex-col gap-2">
           {TABS.map((t, i) => (
@@ -948,6 +938,14 @@ export default function AdminDashboard() {
             </button>
           ))}
         </nav>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1 border border-red-500 text-red-600 bg-white px-3 py-1 rounded-md hover:bg-red-50 hover:text-white hover:bg-red-500 transition-colors text-xs font-semibold shadow-sm mt-6 w-full justify-center"
+          title="Logout"
+        >
+          <span className="text-base">🚪</span>
+          <span>Logout</span>
+        </button>
       </aside>
       {/* Main content */}
       <main className="flex-1 p-6">
