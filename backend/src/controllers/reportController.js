@@ -6,6 +6,7 @@ const GamificationService = require('../services/gamificationService');
 
 // POST /api/reports
 async function createReport(req, res) {
+  console.log('--- Start creating report ---');
   console.log('Received report data:', {
     body: req.body,
     file: req.file ? { name: req.file.originalname, size: req.file.size } : null
@@ -31,10 +32,12 @@ async function createReport(req, res) {
     
     // Handle image upload if present
     if (req.file) {
+      console.log('Processing image...');
       // Convert buffer to base64 for simple storage
       const base64Image = req.file.buffer.toString('base64');
       const mimeType = req.file.mimetype;
       imageUrl = `data:${mimeType};base64,${base64Image}`;
+      console.log('Image processed.');
     }
     
     let { category, location, description } = req.body;
@@ -68,7 +71,9 @@ async function createReport(req, res) {
       createdBy: req.user?.userId || null
     });
     
+    console.log('Saving report to DB...');
     await report.save();
+    console.log('Report saved!');
     
     if (req.user && req.user.userId) {
       // Update user stats and award points

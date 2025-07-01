@@ -20,7 +20,10 @@ const admin = require('../middleware/admin');
 
 const router = express.Router();
 
-const upload = multer({ storage: multer.memoryStorage() });
+const upload = multer({ 
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 5 * 1024 * 1024 } // 5MB
+});
 
 const reportValidation = [
   body('category').notEmpty().withMessage('Category is required'),
