@@ -43,7 +43,7 @@ const reportSchema = new mongoose.Schema({
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   shares: { type: Number, default: 0 },
   views: { type: Number, default: 0 },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 }, {
   timestamps: true
 });
