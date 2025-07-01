@@ -1,0 +1,59 @@
+{
+  "short_name": "RashTrackr",
+  "name": "RashTrackr - Community Environmental Reporting",
+  "description": "Report and track environmental issues in your community. Make a difference with RashTrackr.",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#10B981",
+  "background_color": "#F9FAFB",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["environment", "social", "utilities"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "New Report",
+      "short_name": "Report",
+      "description": "Submit a new environmental report",
+      "url": "/dashboard?tab=report",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "View Map",
+      "short_name": "Map",
+      "description": "View reports on the map",
+      "url": "/dashboard?tab=map",
+      "icons": [
+        {
+          "src": "logo192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

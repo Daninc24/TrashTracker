@@ -1,0 +1,285 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ensure responsive design works properly */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* PWA and Mobile Styles */
+@layer base {
+  /* Prevent zoom on input focus on iOS */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="url"],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent text selection on buttons */
+  button {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Better touch targets */
+  button, a, input, select, textarea {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Hide scrollbars on mobile but keep functionality */
+  @media (max-width: 768px) {
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    
+    * {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  }
+}
+
+@layer components {
+  /* Mobile-friendly card styles */
+  .mobile-card {
+    @apply bg-white rounded-lg shadow-sm border p-4 md:p-6;
+  }
+
+  /* Touch-friendly button styles */
+  .touch-button {
+    @apply px-4 py-3 rounded-lg font-medium transition-colors;
+    @apply active:scale-95;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  /* Mobile-safe area padding */
+  .safe-area {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* PWA install prompt styles */
+  .pwa-install-prompt {
+    @apply fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-80;
+    @apply bg-white rounded-lg shadow-lg border border-gray-200 p-4 z-50;
+    @apply safe-area;
+  }
+
+  /* Offline indicator styles */
+  .offline-indicator {
+    @apply fixed top-4 left-4 right-4 md:left-auto md:right-4 md:w-80;
+    @apply bg-yellow-50 border border-yellow-200 rounded-lg p-3 z-50;
+    @apply safe-area;
+  }
+
+  /* Mobile navigation styles */
+  .mobile-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40;
+    @apply safe-area;
+  }
+
+  /* Mobile header styles */
+  .mobile-header {
+    @apply fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-30;
+    @apply safe-area;
+  }
+
+  /* Responsive grid adjustments */
+  .mobile-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4;
+  }
+
+  /* Mobile-friendly form styles */
+  .mobile-form {
+    @apply space-y-4;
+  }
+
+  .mobile-form input,
+  .mobile-form textarea,
+  .mobile-form select {
+    @apply w-full border border-gray-300 rounded-lg px-3 py-3;
+    @apply focus:ring-2 focus:ring-green-500 focus:border-transparent;
+    @apply text-base;
+  }
+
+  /* Mobile-friendly modal styles */
+  .mobile-modal {
+    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50;
+    @apply p-4;
+  }
+
+  .mobile-modal-content {
+    @apply bg-white rounded-lg w-full max-w-md max-h-[90vh] overflow-y-auto;
+    @apply p-4 md:p-6;
+  }
+
+  /* Touch-friendly list styles */
+  .touch-list {
+    @apply space-y-2;
+  }
+
+  .touch-list-item {
+    @apply p-4 bg-white rounded-lg border hover:bg-gray-50;
+    @apply active:bg-gray-100 transition-colors;
+  }
+
+  /* Mobile-friendly table styles */
+  .mobile-table {
+    @apply w-full;
+  }
+
+  .mobile-table th,
+  .mobile-table td {
+    @apply p-3 text-left;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-table {
+      @apply block;
+    }
+    
+    .mobile-table thead {
+      @apply hidden;
+    }
+    
+    .mobile-table tbody {
+      @apply block;
+    }
+    
+    .mobile-table tr {
+      @apply block mb-4 border rounded-lg p-4;
+    }
+    
+    .mobile-table td {
+      @apply block text-left border-b border-gray-100 last:border-b-0;
+      @apply before:content-[attr(data-label)] before:font-semibold before:mr-2;
+    }
+  }
+}
+
+@layer utilities {
+  /* PWA-specific utilities */
+  .pwa-installable {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  /* Mobile-specific utilities */
+  .mobile-only {
+    @apply block md:hidden;
+  }
+
+  .desktop-only {
+    @apply hidden md:block;
+  }
+
+  /* Touch-friendly spacing */
+  .touch-spacing {
+    @apply space-y-4;
+  }
+
+  .touch-spacing > * + * {
+    @apply mt-4;
+  }
+
+  /* Mobile-safe margins */
+  .mobile-margin {
+    @apply mx-4 md:mx-0;
+  }
+
+  /* Responsive text sizes */
+  .mobile-text-sm {
+    @apply text-sm md:text-base;
+  }
+
+  .mobile-text-lg {
+    @apply text-lg md:text-xl;
+  }
+
+  .mobile-text-xl {
+    @apply text-xl md:text-2xl;
+  }
+
+  /* Mobile-friendly shadows */
+  .mobile-shadow {
+    @apply shadow-sm md:shadow-md;
+  }
+
+  /* Mobile-safe borders */
+  .mobile-border {
+    @apply border border-gray-200;
+  }
+}
+
+/* PWA Splash Screen Styles */
+@media (display-mode: standalone) {
+  body {
+    background-color: #10B981;
+  }
+}
+
+/* Dark mode support for PWA */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-auto {
+    @apply bg-gray-900 text-white;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .high-contrast {
+    @apply border-2 border-black;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
+}
