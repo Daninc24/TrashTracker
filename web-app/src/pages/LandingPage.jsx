@@ -92,7 +92,7 @@ export default function LandingPage() {
       {/* Modal for Anonymous Report */}
       {showAnonModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-2 overflow-y-auto">
-          <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8 w-full max-w-lg sm:max-w-2xl relative my-8 overflow-y-auto max-h-[95vh]">
+          <div className="bg-white rounded-md sm:rounded-lg shadow-lg p-2 sm:p-8 w-full max-w-full sm:max-w-2xl relative my-4 sm:my-8 overflow-y-auto max-h-screen">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"
               onClick={() => setShowAnonModal(false)}
