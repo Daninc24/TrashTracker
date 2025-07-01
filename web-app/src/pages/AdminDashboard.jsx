@@ -322,7 +322,7 @@ function UsersTab() {
                   type="checkbox"
                   checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
                   onChange={handleSelectAll}
-                  className="mr-2"
+                  className="mr-2 h-4 w-4"
                 />
                 Select All
               </th>
@@ -344,7 +344,7 @@ function UsersTab() {
                     type="checkbox"
                     checked={selectedUsers.includes(u._id)}
                     onChange={() => handleSelectUser(u._id)}
-                    className="mr-2"
+                    className="mr-2 h-4 w-4"
                   />
                 </td>
                 <td className="p-2">{u.email}</td>
