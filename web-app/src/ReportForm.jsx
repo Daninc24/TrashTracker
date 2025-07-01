@@ -264,7 +264,7 @@ export default function ReportForm({ onSuccess }) {
   };
 
   return (
-    <div className="w-full max-w-2xl space-y-6">
+    <div className="w-full max-w-full sm:max-w-2xl space-y-6 px-2 sm:px-0">
       {/* Templates Section */}
       {showTemplates && (
         <div className="bg-white shadow-lg rounded-lg p-6">
@@ -272,7 +272,7 @@ export default function ReportForm({ onSuccess }) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-6 space-y-6" aria-label="Report submission form">
+      <form onSubmit={handleSubmit} className="bg-white shadow-lg rounded-lg p-4 sm:p-6 space-y-6" aria-label="Report submission form">
         {locationLoading && (
           <div className="text-center text-blue-500 mb-4">Detecting your location...</div>
         )}
@@ -543,10 +543,10 @@ export default function ReportForm({ onSuccess }) {
         )}
       </div>
       
-      <div className="flex gap-4 pt-4">
+      <div className="flex flex-col sm:flex-row gap-4 pt-4">
         <button 
           type="submit" 
-          className="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50 transition-colors" 
+          className="w-full sm:flex-1 bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 disabled:opacity-50 transition-colors" 
           disabled={loading || !description.trim()} 
           tabIndex={0}
         >
