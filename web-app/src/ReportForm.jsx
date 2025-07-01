@@ -234,7 +234,23 @@ export default function ReportForm({ onSuccess }) {
   };
 
   const handleUseMyLocation = () => {
-    // Implementation of handleUseMyLocation
+    if (navigator.geolocation) {
+      setLocationLoading(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLat(position.coords.latitude);
+          setLng(position.coords.longitude);
+          setLocationLoading(false);
+          showToast('Location updated to your current position!', 'success');
+        },
+        (error) => {
+          setLocationLoading(false);
+          showToast('Unable to access your location. Please check your browser settings.', 'error');
+        }
+      );
+    } else {
+      showToast('Geolocation is not supported by your browser.', 'error');
+    }
   };
 
   return (
