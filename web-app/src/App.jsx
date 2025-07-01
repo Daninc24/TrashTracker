@@ -30,10 +30,29 @@ function AuthForms() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let success;
     if (isLogin) {
-      await login(email, password);
+      success = await login(email, password);
     } else {
-      await register(email, password);
+      success = await register(email, password);
+    }
+    // Redirect immediately after successful login/register
+    if (success) {
+      const storedToken = localStorage.getItem('token');
+      if (storedToken) {
+        try {
+          const decoded = require('jwt-decode').jwtDecode(storedToken);
+          if (decoded.role === 'admin') {
+            navigate('/admin');
+          } else {
+            navigate('/dashboard');
+          }
+        } catch (e) {
+          navigate('/dashboard');
+        }
+      } else {
+        navigate('/dashboard');
+      }
     }
   };
 

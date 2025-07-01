@@ -56,6 +56,8 @@ export default function ReportForm({ onSuccess }) {
   const [showTemplates, setShowTemplates] = useState(false);
   const { showToast } = useToast();
   const [error, setError] = useState(null);
+  const [anonymous, setAnonymous] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -109,9 +111,12 @@ export default function ReportForm({ onSuccess }) {
       });
       console.log('Location JSON string:', JSON.stringify(locationData));
       
-      const res = await api.post('/reports', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+      if (anonymous || !user) {
+        delete api.defaults.headers.common['Authorization'];
+      }
+      
+      const res = await api.post('/reports', formData, config);
       
       console.log('Report submitted successfully:', res.data);
       showToast('Report submitted successfully!', 'success');
@@ -130,6 +135,10 @@ export default function ReportForm({ onSuccess }) {
       setCustomTag('');
       
       if (onSuccess) onSuccess(res.data.report || res.data);
+      
+      if (user && user.token) {
+        api.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+      }
     } catch (err) {
       console.error('Error submitting report:', err);
       console.error('Error response:', err.response?.data);
@@ -204,6 +213,10 @@ export default function ReportForm({ onSuccess }) {
     setEstimatedCleanupTime(template.estimatedCleanupTime.toString());
     setShowTemplates(false);
     showToast(`Template "${template.name}" applied!`, 'success');
+  };
+
+  const handleUseMyLocation = () => {
+    // Implementation of handleUseMyLocation
   };
 
   return (
@@ -457,6 +470,27 @@ export default function ReportForm({ onSuccess }) {
             )}
           </label>
         </div>
+      </div>
+      
+      <div className="flex gap-2 mb-4">
+        <button
+          type="button"
+          onClick={handleUseMyLocation}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm"
+        >
+          Use My Location
+        </button>
+        {(!user || anonymous) && (
+          <label className="flex items-center ml-4">
+            <input
+              type="checkbox"
+              checked={anonymous}
+              onChange={e => setAnonymous(e.target.checked)}
+              className="mr-2"
+            />
+            Submit as Anonymous
+          </label>
+        )}
       </div>
       
       <div className="flex gap-4 pt-4">
