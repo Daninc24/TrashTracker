@@ -43,7 +43,8 @@ const corsOptions = {
       'https://rashtrackr.onrender.com',
       'https://rashtrackr-frontend.onrender.com',
       'https://rashtrackr-web.onrender.com',
-      'https://trash-tracker-lime.vercel.app'
+      'https://trash-tracker-lime.vercel.app',
+      'https://trash-tracker-git-main-daniel-mailus-projects.vercel.app'
     ];
     
     // Allow requests with no origin (mobile apps, etc.)

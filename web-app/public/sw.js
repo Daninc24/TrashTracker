@@ -1,12 +1,11 @@
 const CACHE_NAME = 'rashtrackr-v1';
 const urlsToCache = [
   '/',
-  '/static/js/bundle.js',
-  '/static/css/main.css',
   '/manifest.json',
   '/favicon.ico',
   '/logo192.png',
   '/logo512.png'
+  // Only include files that exist in your build/public directory
 ];
 
 // Install event - cache resources
