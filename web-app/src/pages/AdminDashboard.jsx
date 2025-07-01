@@ -576,9 +576,11 @@ function ReportsTab() {
                     onChange={e => handleStatusChange(r._id, e.target.value)}
                     className="border rounded px-2 py-1"
                   >
-                    <option value="pending">pending</option>
-                    <option value="in progress">in progress</option>
-                    <option value="resolved">resolved</option>
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="resolved">Resolved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="duplicate">Duplicate</option>
                   </select>
                 </td>
                 <td className="p-2">{new Date(r.createdAt).toLocaleString()}</td>

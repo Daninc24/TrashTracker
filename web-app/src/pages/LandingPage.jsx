@@ -101,7 +101,9 @@ export default function LandingPage() {
               &times;
             </button>
             <h2 className="text-2xl font-bold text-center mb-4 text-green-700">Submit an Anonymous Report</h2>
-            <ReportForm onSuccess={() => setShowAnonModal(false)} />
+            <div className="overflow-y-auto max-h-[70vh]">
+              <ReportForm onSuccess={() => setShowAnonModal(false)} />
+            </div>
           </div>
         </div>
       )}
