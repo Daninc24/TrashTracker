@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ReportForm from '../ReportForm';
 
 export default function LandingPage() {
+  const [showAnonModal, setShowAnonModal] = useState(false);
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       {/* Navigation */}
@@ -49,6 +50,12 @@ export default function LandingPage() {
               >
                 Start Reporting Today
               </Link>
+              <button
+                onClick={() => setShowAnonModal(true)}
+                className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 hover:text-white transition-colors"
+              >
+                Report Anonymously
+              </button>
               <Link
                 to="/about"
                 className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 hover:text-white transition-colors"
@@ -66,6 +73,23 @@ export default function LandingPage() {
           <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-yellow-200 rounded-full opacity-20"></div>
         </div>
       </section>
+
+      {/* Modal for Anonymous Report */}
+      {showAnonModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg p-8 max-w-2xl w-full relative">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"
+              onClick={() => setShowAnonModal(false)}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <h2 className="text-2xl font-bold text-center mb-4 text-green-700">Submit an Anonymous Report</h2>
+            <ReportForm onSuccess={() => setShowAnonModal(false)} />
+          </div>
+        </div>
+      )}
 
       {/* Features Section */}
       <section className="py-20 bg-white">
@@ -155,19 +179,6 @@ export default function LandingPage() {
                 Monitor the status of your report and see when it gets resolved
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Anonymous Report Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold text-green-700 mb-4">Report an Issue Instantly</h2>
-            <p className="text-lg text-gray-600">No account needed! Submit an environmental report anonymously below.</p>
-          </div>
-          <div className="flex justify-center">
-            <ReportForm />
           </div>
         </div>
       </section>
