@@ -66,7 +66,7 @@ export default function LandingPage() {
                 Start Reporting Today
               </Link>
               <button
-                onClick={() => setShowAnonModal(true)}
+                onClick={() => navigate('/anonymous-report')}
                 className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 hover:text-white transition-colors"
               >
                 Report Anonymously
@@ -88,25 +88,6 @@ export default function LandingPage() {
           <div className="absolute bottom-20 left-1/4 w-16 h-16 bg-yellow-200 rounded-full opacity-20"></div>
         </div>
       </section>
-
-      {/* Modal for Anonymous Report */}
-      {showAnonModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-2 overflow-y-auto max-h-screen">
-          <div className="bg-white rounded-md sm:rounded-lg shadow-lg p-2 sm:p-8 w-full max-w-full sm:max-w-2xl relative my-4 sm:my-8 overflow-y-auto max-h-screen">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"
-              onClick={() => setShowAnonModal(false)}
-              aria-label="Close"
-            >
-              &times;
-            </button>
-            <h2 className="text-2xl font-bold text-center mb-4 text-green-700">Submit an Anonymous Report</h2>
-            <div className="overflow-y-auto max-h-[70vh]">
-              <ReportForm onSuccess={() => setShowAnonModal(false)} />
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Features Section */}
       <section className="py-20 bg-white">

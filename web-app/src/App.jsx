@@ -9,6 +9,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import LandingPage from './pages/LandingPage';
 import UserProfile from './pages/UserProfile';
+import AnonymousReport from './pages/AnonymousReport';
 
 function AuthForms() {
   const { login, register, loading, user } = useContext(AuthContext);
@@ -141,6 +142,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/anonymous-report" element={<AnonymousReport />} />
       <Route path="/login" element={<AuthForms />} />
       <Route path="/register" element={<AuthForms />} />
       <Route path="/dashboard" element={user ? <UserDashboard /> : <AuthForms />} />
