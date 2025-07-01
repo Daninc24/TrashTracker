@@ -37,7 +37,18 @@ export function AuthProvider({ children }) {
       const res = await api.post('/auth/login', { email, password });
       setToken(res.data.token);
       localStorage.setItem('token', res.data.token);
-      setUser({ token: res.data.token });
+      // Immediately decode and set user
+      try {
+        const decoded = jwtDecode(res.data.token);
+        setUser({
+          token: res.data.token,
+          email: decoded.email,
+          role: decoded.role,
+          userId: decoded.userId,
+        });
+      } catch (e) {
+        setUser({ token: res.data.token });
+      }
       showToast('Login successful!', 'success');
       return true;
     } catch (err) {
@@ -51,9 +62,23 @@ export function AuthProvider({ children }) {
   const register = async (email, password) => {
     setLoading(true);
     try {
-      await api.post('/auth/register', { email, password });
+      const res = await api.post('/auth/register', { email, password });
+      setToken(res.data.token);
+      localStorage.setItem('token', res.data.token);
+      // Immediately decode and set user
+      try {
+        const decoded = jwtDecode(res.data.token);
+        setUser({
+          token: res.data.token,
+          email: decoded.email,
+          role: decoded.role,
+          userId: decoded.userId,
+        });
+      } catch (e) {
+        setUser({ token: res.data.token });
+      }
       showToast('Registration successful!', 'success');
-      return await login(email, password);
+      return true;
     } catch (err) {
       showToast(err.response?.data?.error || 'Registration failed', 'error');
       return false;

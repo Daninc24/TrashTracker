@@ -91,7 +91,7 @@ const enhancedReportValidation = [
 ];
 
 // Routes
-router.post('/', auth, upload.single('image'), enhancedReportValidation, createReport);
+router.post('/', upload.single('image'), enhancedReportValidation, createReport);
 router.get('/', getReports);
 router.get('/search', searchReports);
 router.get('/analytics', getReportAnalytics);

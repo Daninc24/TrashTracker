@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ReportMap from '../components/ReportMap';
 import NotificationCenter from '../components/NotificationCenter';
 import AnalyticsDashboard from '../components/AnalyticsDashboard';
+import { AuthContext } from '../AuthContext';
 
 function UsersTab() {
   const [users, setUsers] = React.useState([]);
@@ -871,11 +872,10 @@ const TABS = [
 ];
 
 export default function AdminDashboard() {
+  const { user } = useContext(AuthContext);
   const [tab, setTab] = useState(0);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
-
-  const TabComponent = TABS[tab].component;
 
   // Fetch unread notification count on mount
   React.useEffect(() => {
@@ -889,13 +889,16 @@ export default function AdminDashboard() {
         console.error('Error fetching notification count:', error);
       }
     };
-    
     fetchUnreadCount();
-    
-    // Poll for new notifications every 60 seconds instead of 30
     const interval = setInterval(fetchUnreadCount, 60000);
     return () => clearInterval(interval);
   }, []);
+
+  if (!user || user.role !== 'admin') {
+    return <div className="text-red-500 font-bold text-center mt-10">Access denied. Admins only.</div>;
+  }
+
+  const TabComponent = TABS[tab].component;
 
   return (
     <div className="flex min-h-screen bg-gray-50">

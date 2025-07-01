@@ -65,45 +65,47 @@ async function createReport(req, res) {
       tags: req.body.tags || [],
       address: req.body.address || '',
       estimatedCleanupTime: req.body.estimatedCleanupTime || null,
-      createdBy: req.user.userId 
+      createdBy: req.user?.userId || null
     });
     
     await report.save();
     
-    // Update user stats and award points
-    const user = await User.findById(req.user.userId);
-    user.stats.totalReports += 1;
-    await user.save();
-    
-    // Award points for report submission
-    await GamificationService.awardPoints(req.user.userId, 'REPORT_SUBMITTED');
-    
-    // Update streak
-    await GamificationService.updateStreak(req.user.userId);
-    
-    // Check for achievements
-    await GamificationService.checkAchievements(user, 'report');
-    
-    // Create welcome notification for new users
-    const userReports = await Report.countDocuments({ createdBy: req.user.userId });
-    if (userReports === 1) {
-      await createUserNotification(
-        req.user.userId,
-        'welcome',
-        'Welcome to RashTrackr! 🎉',
-        'Thank you for submitting your first report. You\'re now part of our community making a difference!',
-        { reportId: report._id },
-        report._id
-      );
-    } else {
-      await createUserNotification(
-        req.user.userId,
-        'report_status_changed',
-        'Report Submitted Successfully! 📝',
-        `Your "${category}" report has been submitted and is now under review.`,
-        { reportId: report._id, status: 'pending' },
-        report._id
-      );
+    if (req.user && req.user.userId) {
+      // Update user stats and award points
+      const user = await User.findById(req.user.userId);
+      user.stats.totalReports += 1;
+      await user.save();
+      
+      // Award points for report submission
+      await GamificationService.awardPoints(req.user.userId, 'REPORT_SUBMITTED');
+      
+      // Update streak
+      await GamificationService.updateStreak(req.user.userId);
+      
+      // Check for achievements
+      await GamificationService.checkAchievements(user, 'report');
+      
+      // Create welcome notification for new users
+      const userReports = await Report.countDocuments({ createdBy: req.user.userId });
+      if (userReports === 1) {
+        await createUserNotification(
+          req.user.userId,
+          'welcome',
+          'Welcome to RashTrackr! 🎉',
+          'Thank you for submitting your first report. You\'re now part of our community making a difference!',
+          { reportId: report._id },
+          report._id
+        );
+      } else {
+        await createUserNotification(
+          req.user.userId,
+          'report_status_changed',
+          'Report Submitted Successfully! 📝',
+          `Your "${category}" report has been submitted and is now under review.`,
+          { reportId: report._id, status: 'pending' },
+          report._id
+        );
+      }
     }
     
     res.status(201).json(report);
