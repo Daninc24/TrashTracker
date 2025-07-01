@@ -27,6 +27,11 @@ function LocationMarker({ position, setPosition }) {
 const MapPicker = ({ initialPosition = [37.7749, -122.4194], onChange }) => {
   const [position, setPosition] = useState(initialPosition);
 
+  // Update position if initialPosition prop changes
+  React.useEffect(() => {
+    setPosition(initialPosition);
+  }, [initialPosition]);
+
   React.useEffect(() => {
     if (onChange && position) {
       onChange(position);
