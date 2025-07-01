@@ -39,7 +39,10 @@ const corsOptions = {
       'http://localhost:3000',
       'http://localhost:3001',
       'https://rashtrackr.com',
-      'https://www.rashtrackr.com'
+      'https://www.rashtrackr.com',
+      'https://rashtrackr.onrender.com',
+      'https://rashtrackr-frontend.onrender.com',
+      'https://rashtrackr-web.onrender.com'
     ];
     
     // Allow requests with no origin (mobile apps, etc.)

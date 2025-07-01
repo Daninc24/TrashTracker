@@ -153,6 +153,29 @@ Frontend may use `.env` for custom settings (see [CRA docs](https://create-react
 
 ## Deployment
 
+### Render Deployment (Recommended)
+
+1. **Backend Deployment:**
+   - Push your code to GitHub/GitLab
+   - Connect your repository to Render
+   - Use the `render.yaml` blueprint for automatic setup
+   - Set all environment variables in Render dashboard
+   - Deploy using the "Create New Web Service" option
+
+2. **Frontend Deployment:**
+   ```sh
+   cd web-app
+   npm run build
+   ```
+   Deploy the contents of `web-app/build/` to your static hosting (Netlify, Vercel, S3, etc).
+
+3. **Environment Variables for Render:**
+   - Set all variables from the `.env` example in Render dashboard
+   - Use production-ready services (MongoDB Atlas, Redis Cloud, etc.)
+   - Ensure `NODE_ENV=production`
+
+### Manual Deployment
+
 1. **Build the frontend:**
    ```sh
    cd web-app
