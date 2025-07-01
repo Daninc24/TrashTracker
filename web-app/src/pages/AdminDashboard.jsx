@@ -570,11 +570,11 @@ function ReportsTab() {
               <tr key={r._id} className="border-b">
                 <td className="p-2">{r.category}</td>
                 <td className="p-2">{r.description || 'No description'}</td>
-                <td className="p-2">
+                <td className="p-2 relative z-10">
                   <select
                     value={r.status}
                     onChange={e => handleStatusChange(r._id, e.target.value)}
-                    className="border rounded px-2 py-1"
+                    className="border rounded px-2 py-1 z-20 relative"
                   >
                     <option value="pending">Pending</option>
                     <option value="in_progress">In Progress</option>
