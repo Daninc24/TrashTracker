@@ -6,6 +6,11 @@ click this link to access the website i have hosted frontend on vercel and backe
 
 https://trash-tracker-lime.vercel.app/
 
+you can sing up for submitting report or submit anonymously 
+for viewing the report you can check in as admin
+use this email and password for admin danmailur8@gmail.com 
+12345678
+
 
 
 
