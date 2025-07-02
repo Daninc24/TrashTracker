@@ -72,10 +72,10 @@ export default function LandingPage() {
                 Report Anonymously
               </button>
               <Link
-                to="/about"
+                to="/about-project"
                 className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-green-600 hover:text-white transition-colors"
               >
-                Learn More
+                About This Project
               </Link>
             </div>
           </div>

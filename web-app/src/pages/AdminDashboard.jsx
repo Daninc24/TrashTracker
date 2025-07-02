@@ -315,10 +315,10 @@ function UsersTab() {
       )}
 
       <div className="overflow-x-auto">
-        <table className="min-w-full text-sm">
+        <table className="min-w-full text-xs sm:text-sm">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-2 text-left">
+              <th className="p-1 sm:p-2 text-left">
                 <input
                   type="checkbox"
                   checked={selectedUsers.length === filteredUsers.length && filteredUsers.length > 0}
@@ -327,11 +327,11 @@ function UsersTab() {
                 />
                 Select All
               </th>
-              <th className="p-2 text-left">Email</th>
-              <th className="p-2 text-left">Role</th>
-              <th className="p-2 text-left">Status</th>
-              <th className="p-2 text-left">Created</th>
-              <th className="p-2 text-left">Actions</th>
+              <th className="p-1 sm:p-2 text-left">Email</th>
+              <th className="p-1 sm:p-2 text-left">Role</th>
+              <th className="p-1 sm:p-2 text-left">Status</th>
+              <th className="p-1 sm:p-2 text-left">Created</th>
+              <th className="p-1 sm:p-2 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -340,7 +340,7 @@ function UsersTab() {
             )}
             {filteredUsers.map(u => (
               <tr key={u._id} className={`border-b ${!u.active ? 'bg-red-50' : ''}`}>
-                <td className="p-2">
+                <td className="p-1 sm:p-2">
                   <input
                     type="checkbox"
                     checked={selectedUsers.includes(u._id)}
@@ -348,8 +348,8 @@ function UsersTab() {
                     className="mr-2 h-4 w-4"
                   />
                 </td>
-                <td className="p-2">{u.email}</td>
-                <td className="p-2">
+                <td className="p-1 sm:p-2">{u.email}</td>
+                <td className="p-1 sm:p-2">
                   <select
                     value={u.role}
                     onChange={e => handleRoleChange(u._id, e.target.value)}
@@ -361,13 +361,13 @@ function UsersTab() {
                   </select>
                   {updating === u._id && <span className="ml-2 text-xs text-blue-500">Updating...</span>}
                 </td>
-                <td className="p-2">
+                <td className="p-1 sm:p-2">
                   <span className={`px-2 py-1 rounded text-xs ${u.active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                     {u.active ? 'Active' : 'Banned'}
                   </span>
                 </td>
-                <td className="p-2">{new Date(u.createdAt).toLocaleString()}</td>
-                <td className="p-2 flex gap-2">
+                <td className="p-1 sm:p-2">{new Date(u.createdAt).toLocaleString()}</td>
+                <td className="p-1 sm:p-2 flex flex-wrap gap-1 sm:gap-2">
                   <button
                     className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs"
                     onClick={() => handleViewUser(u)}
@@ -402,7 +402,7 @@ function UsersTab() {
       {/* User Details Modal */}
       {selectedUser && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white rounded shadow-lg p-6 w-full max-w-2xl relative max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded shadow-lg p-2 sm:p-4 md:p-6 w-full max-w-xs sm:max-w-md md:max-w-2xl relative max-h-[90vh] overflow-y-auto">
             <button
               className="absolute top-2 right-2 text-gray-400 hover:text-gray-700"
               onClick={() => setSelectedUser(null)}
@@ -552,14 +552,14 @@ function ReportsTab() {
         </button>
       </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full text-sm">
+        <table className="min-w-full text-xs sm:text-sm">
           <thead>
             <tr className="bg-gray-100">
-              <th className="p-2 text-left">Category</th>
-              <th className="p-2 text-left">Description</th>
-              <th className="p-2 text-left">Status</th>
-              <th className="p-2 text-left">Created</th>
-              <th className="p-2 text-left">Actions</th>
+              <th className="p-1 sm:p-2 text-left">Category</th>
+              <th className="p-1 sm:p-2 text-left">Description</th>
+              <th className="p-1 sm:p-2 text-left">Status</th>
+              <th className="p-1 sm:p-2 text-left">Created</th>
+              <th className="p-1 sm:p-2 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -568,9 +568,9 @@ function ReportsTab() {
             )}
             {filteredReports.map(r => (
               <tr key={r._id} className="border-b">
-                <td className="p-2">{r.category}</td>
-                <td className="p-2">{r.description || 'No description'}</td>
-                <td className="p-2 relative z-10">
+                <td className="p-1 sm:p-2">{r.category}</td>
+                <td className="p-1 sm:p-2">{r.description || 'No description'}</td>
+                <td className="p-1 sm:p-2 relative z-10">
                   <select
                     value={r.status}
                     onChange={e => handleStatusChange(r._id, e.target.value)}
@@ -583,8 +583,8 @@ function ReportsTab() {
                     <option value="duplicate">Duplicate</option>
                   </select>
                 </td>
-                <td className="p-2">{new Date(r.createdAt).toLocaleString()}</td>
-                <td className="p-2 flex gap-2">
+                <td className="p-1 sm:p-2">{new Date(r.createdAt).toLocaleString()}</td>
+                <td className="p-1 sm:p-2 flex flex-wrap gap-1 sm:gap-2">
                   <button
                     className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs"
                     onClick={() => setSelectedReport(r)}
@@ -607,7 +607,7 @@ function ReportsTab() {
       {/* Modal for viewing report details */}
       {selectedReport && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white rounded shadow-lg p-6 w-full max-w-md relative">
+          <div className="bg-white rounded shadow-lg p-2 sm:p-4 md:p-6 w-full max-w-xs sm:max-w-md md:max-w-lg relative max-h-[90vh] overflow-y-auto">
             <button
               className="absolute top-2 right-2 text-gray-400 hover:text-gray-700"
               onClick={() => setSelectedReport(null)}
@@ -948,7 +948,7 @@ export default function AdminDashboard() {
         </button>
       </aside>
       {/* Main content */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 p-2 sm:p-4 md:p-6">
         <div className="md:hidden flex items-center justify-between mb-4">
           <div className="flex gap-2">
             {TABS.map((t, i) => (
