@@ -4,6 +4,7 @@ import NotificationCenter from '../components/NotificationCenter';
 import AnalyticsDashboard from '../components/AnalyticsDashboard';
 import { AuthContext } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
+import MobileNavigation from '../components/MobileNavigation';
 
 function UsersTab() {
   const [users, setUsers] = React.useState([]);
@@ -947,41 +948,12 @@ export default function AdminDashboard() {
           <span>Logout</span>
         </button>
       </aside>
+      {/* Mobile Hamburger Navigation */}
+      <div className="md:hidden">
+        <MobileNavigation user={user} onLogout={handleLogout} />
+      </div>
       {/* Main content */}
       <main className="flex-1 p-2 sm:p-4 md:p-6">
-        <div className="md:hidden flex items-center justify-between mb-4">
-          <div className="flex gap-2">
-            {TABS.map((t, i) => (
-              <button
-                key={t.name}
-                className={`px-3 py-1 rounded ${tab === i ? 'bg-blue-100 text-blue-700' : 'bg-white border'}`}
-                onClick={() => setTab(i)}
-              >
-                {t.name}
-              </button>
-            ))}
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setNotificationsOpen(true)}
-              className="relative p-2 text-gray-600 hover:text-gray-800"
-            >
-              🔔
-              {unreadCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {unreadCount > 9 ? '9+' : unreadCount}
-                </span>
-              )}
-            </button>
-            <button
-              onClick={handleLogout}
-              className="p-2 text-red-600 border border-red-500 rounded hover:bg-red-50 text-xs font-semibold"
-              title="Logout"
-            >
-              🚪
-            </button>
-          </div>
-        </div>
         <TabComponent onNavigateTab={setTab} />
       </main>
 

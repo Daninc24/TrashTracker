@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function AboutProject() {
   return (
     <div className="max-w-3xl mx-auto py-12 px-4">
+      <Link to="/" className="inline-block mb-6 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 font-semibold">Back to Home</Link>
       <h1 className="text-4xl font-bold mb-4 text-green-700">About RashTrackr</h1>
       <p className="mb-4 text-lg text-gray-700">
         RashTrackr is a community-driven platform designed to empower individuals and organizations to report, track, and resolve environmental issues in their communities. Our mission is to make it easy for everyone to contribute to a cleaner, healthier environment.
