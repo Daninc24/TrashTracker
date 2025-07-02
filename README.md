@@ -1,3 +1,14 @@
+final project
+
+pitch https://www.canva.com/design/DAGoeNSoh3U/TRDMK1J3qghahe0iTT6YFQ/edit?utm_content=DAGoeNSoh3U&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
+click this link to access the website i have hosted frontend on vercel and backend on render 
+
+https://trash-tracker-lime.vercel.app/
+
+
+
+
 # RashTrackr
 
 RashTrackr is a full-stack web application for community-driven environmental reporting and analytics. It consists of a Node.js/Express backend and a React (Create React App) frontend, with features for reporting, gamification, notifications, and analytics.
