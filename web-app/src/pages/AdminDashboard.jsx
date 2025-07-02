@@ -961,17 +961,26 @@ export default function AdminDashboard() {
               </button>
             ))}
           </div>
-          <button
-            onClick={() => setNotificationsOpen(true)}
-            className="relative p-2 text-gray-600 hover:text-gray-800"
-          >
-            🔔
-            {unreadCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {unreadCount > 9 ? '9+' : unreadCount}
-              </span>
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setNotificationsOpen(true)}
+              className="relative p-2 text-gray-600 hover:text-gray-800"
+            >
+              🔔
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="p-2 text-red-600 border border-red-500 rounded hover:bg-red-50 text-xs font-semibold"
+              title="Logout"
+            >
+              🚪
+            </button>
+          </div>
         </div>
         <TabComponent onNavigateTab={setTab} />
       </main>
